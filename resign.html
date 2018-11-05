@@ -1,0 +1,94 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <title>document</title>
+    <style type="text/css">
+        .box{
+            width:500px;
+            height:300px;
+            border:1px solid #999;
+            position:relative;/*父元素相对定位*/
+            left:425px;/*距离body左边的距离*/
+            top:20px;/*距离body上边的距离*/
+        }
+        #agreement{
+            position:absolute;
+            width:60px;
+            height:30px;
+            left:10px;
+            top:270px;
+        }
+        #disagreement{
+            position:absolute;
+            width:60px;
+            height:30px;
+            left:80px;
+            top:270px;
+        }
+        .title{
+            height:40px;
+            font:30px/40px 微软雅黑;/*30px是字体大小，40px是行高*/
+            text-align:center;
+            border-bottom:2px solid #999;
+        }
+        .body{
+            height:200px;
+            border-bottom:2px solid #999;
+        }
+        .content{
+            text-indent:2em;
+        }
+        .div_img{
+            height:80px;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div id="" class="box">
+        <div id="" class="title">
+            辞职报告
+        </div>
+        <div id="" class="body">
+            <p>尊敬的领导：</p>
+            <p class="content">经过深思熟虑，本人决定辞职！</p>
+            <div id="" class="div_img">
+                <img src="quit.jpg" width="120px" height="80px" border="0" alt="">
+            </div>          
+            <p class="content">希望领导批准！</p>
+        </div>
+        <input type="button" id="agreement" value="同意" onclick="jump()">
+        <input type="button" id="disagreement" value="不同意" onMouseOver="move()" onclick="fun()">
+    </div>
+    <script>
+        /*
+          getRandom(min,max,btnLength)方法，用来获取绝对定位中随机的left和top，
+          min参数：表示最小移动范围，为0；
+          max参数：表示最大移动范围，为div.box的width或者是height，生成随机left时，使用div的width,生成随机top是，使用div的height;
+          btn参数：表示不同意按钮(btn)的width或height，生成随机left时，使用btn的width,生成随机top是，使用btn的height，为了按钮不移出div.box，需要减去btn的大小，即btn的移动宽度为div的width减去btn的width,btn的移动高度为div的height减去btn的height;
+        */
+        function getRandom(min,max,btnLength){
+            var range=max-min-btnLength;/*计算btn移动的范围，即移动高度或移动宽度*/
+            var rand=Math.round(range*Math.random());/*计算在范围内的随机移动的left和top，Math.random()生成[0,1)的随机值，Math.round()是四舍五入取整得出随机移动的left和top*/
+            return rand;
+        }
+        
+        /*move()方法，利用生成的随机值left：getRandom(0,500,60)和top：getRandom(0,300,30)来移动按钮的方法*/
+        function move(){  
+            var btn=document.getElementById("disagreement");/*获取不同意按钮*/          
+            btn.style.left=getRandom(0,500,60)+"px";/*将btn的left的值设为生成的随机值，500是div宽度，60是btn宽度*/
+            btn.style.top=getRandom(0,300,30)+"px";/*将btn的top的值设为生成的随机值，300是div高度，30是btn高度*/
+            /*btn=document.getElementById("disagreement");
+            btn.style.position="absolute"
+            btn.style.left=left+"px";
+            btn.style.top=top+"px";*/
+        }
+        function jump(){
+            self.location='agree.html';/*点击同意跳转到agree.html页面*/
+        }
+        function fun(){
+            alert('不同意也不行！哼！');/*如果点击到不同意，则提示文本*/
+        }
+    </script>
+</body>
+</html>
